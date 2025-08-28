@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="hero">
+    <h1>Karina Ocampo Cantante</h1>
+    <p>Shows, Karaoke, DJ y Animación para tu evento.</p>
+</section>
+
+<section class="instagram-feed">
+    <h2>Nuestro Instagram</h2>
+    <div class="posts">
+        {% for post in instagram_posts %}
+        <div class="post">
+            <img src="{{ post.media_url }}" alt="{{ post.caption }}">
+            <p>{{ post.caption }}</p>
+            <a href="{{ post.permalink }}" target="_blank">Ver en Instagram</a>
+        </div>
+        {% else %}
+        <p>No hay posts de Instagram para mostrar.</p>
+        {% endfor %}
+    </div>
+</section>
+{% endblock %}
