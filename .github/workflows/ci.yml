@@ -1,0 +1,55 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  backend-lint-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install Poetry
+        run: pip install poetry
+      - name: Install Backend Dependencies
+        run: | 
+          cd apps/api
+          poetry install --no-root
+      - name: Run Ruff (Linter)
+        run: | 
+          cd apps/api
+          poetry run ruff check .
+      - name: Run Pytest (Tests)
+        run: | 
+          cd apps/api
+          poetry run pytest
+
+  frontend-lint-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Install Frontend Dependencies
+        run: |
+          cd apps/web
+          npm install
+      - name: Run ESLint (Linter)
+        run: |
+          cd apps/web
+          npm run lint
+      - name: Run Playwright (Tests)
+        run: |
+          cd apps/web
+          npx playwright install --with-deps
+          npm test
