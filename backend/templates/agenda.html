@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block content %}
+<section class="agenda">
+    <h2>Agenda de Eventos</h2>
+    <div class="calendar">
+        <!-- Calendar implementation will go here -->
+        <p>Próximamente: un calendario interactivo de eventos.</p>
+        <ul>
+            {% for event in events %}
+            <li>{{ event.date }}: {{ event.event_type }}</li>
+            {% else %}
+            <li>No hay eventos programados.</li>
+            {% endfor %}
+        </ul>
+    </div>
+</section>
+{% endblock %}
