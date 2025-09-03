@@ -2,12 +2,12 @@
 services:
   api:
     build:
-      context: ../backend
+      context: ../apps/api
       dockerfile: Dockerfile
     ports:
       - "8000:8000"
     volumes:
-      - ../backend:/app
+      - ../apps/api:/app
     depends_on:
       - db
     env_file:
