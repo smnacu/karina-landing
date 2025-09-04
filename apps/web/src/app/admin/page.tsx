@@ -1,6 +1,8 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import withAuth from '@/components/withAuth';
+import { UserRole } from '@/types';
 
 interface Lead {
   id: number;
@@ -16,7 +18,7 @@ interface Lead {
   status: string;
 }
 
-export default function AdminPage() {
+function AdminPage() {
   const [leads, setLeads] = useState<Lead[]>([]);
   const [settings, setSettings] = useState({
     default_deposit_percentage: 0.30,
@@ -257,3 +259,5 @@ export default function AdminPage() {
     </div>
   );
 }
+
+export default withAuth(AdminPage, { allowedRoles: [UserRole.ADMIN] });
